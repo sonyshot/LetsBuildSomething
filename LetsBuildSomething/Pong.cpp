@@ -23,14 +23,46 @@ Pong::Pong() {
 	m_ballYv = 5;
 }
 
-Pong::~Pong() {
+Pong::Pong(int x, int y) {
+	m_screen.setFillColor(sf::Color::Transparent);
+	m_screen.setOutlineColor(sf::Color::White);
+	m_screen.setOutlineThickness(1);
+	m_screen.setSize(sf::Vector2f(x, y));
+	//should probably set the screen variables and then use them throughout the constructor, but whatevs
+	m_screenX = x;
+	m_screenY = y;
 
+	m_player2.setFillColor(sf::Color::White);
+	m_player2.setPosition(sf::Vector2f(.05*x, .45*y));
+	m_player2.setSize(sf::Vector2f(.02*x,.1*y));
+
+	//player 1 on the right...
+	m_player1.setFillColor(sf::Color::White);
+	m_player1.setPosition(sf::Vector2f(.93*x, .45*y));
+	m_player1.setSize(sf::Vector2f(.02*x, .1*y));
+
+	m_dividingLine.setFillColor(sf::Color::White);
+	m_dividingLine.setPosition(sf::Vector2f(.5*x - 1, 0));
+	m_dividingLine.setSize(sf::Vector2f(2, y));
+
+	m_ballRadius = .01*x;
+	m_ball.setFillColor(sf::Color::White);
+	m_ball.setPosition(sf::Vector2f(.5*x - m_ballRadius, .5*y - m_ballRadius));
+	m_ball.setRadius(m_ballRadius);
+	m_ballXv = 3;
+	m_ballYv = 5;
+}
+
+Pong::~Pong() {
+	
 }
 
 void Pong::handleEvent(const sf::Event &e) {
 	switch (e.type) {
 
 	case sf::Event::KeyPressed:
+		if (!m_playStart)
+			m_playStart = 1;
 		if (e.key.code == sf::Keyboard::Left) {
 			m_moving1[0] = 1;
 		}
@@ -91,13 +123,29 @@ void Pong::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(m_player2);
 	target.draw(m_ball);
 	target.draw(m_dividingLine);
+	target.draw(m_screen);
 }
 
 bool Pong::checkCollision() {
 	if (m_ball.getGlobalBounds().intersects(m_player1.getGlobalBounds())) {
 		m_ballXv = -1 * m_ballXv;
 		return true;
-	} else 
+	}
+	else if (m_ball.getGlobalBounds().intersects(m_player2.getGlobalBounds())) {
+		m_ballXv = -1 * m_ballXv;
+		return true;
+	}
+	if (m_ball.getGlobalBounds().left < 0) {
+		std::cout << "Player 2 point!" << std::endl;
+		newRound();
+		return true;
+	}
+	else if (m_ball.getGlobalBounds().left > m_screenX) {
+		std::cout << "Player 1 point!" << std::endl;
+		newRound();
+		return true;
+	}
+
 	return false;
 }
 
@@ -142,13 +190,23 @@ void Pong::moveBall() {
 	//	m_ballXv = -1 * m_ballXv;
 	//	std::cout << "Point" << std::endl;
 	//}
-	if ((m_ball.getGlobalBounds().top < 0) || (m_ball.getGlobalBounds().top > m_screenY - 20)) {
+	if ((m_ball.getGlobalBounds().top < 0) || (m_ball.getGlobalBounds().top > m_screenY - 2*m_ballRadius)) {
 		m_ballYv = -1 * m_ballYv;
 	}
 }
 
 void Pong::update() {
+	//probably bad
+	if (!m_playStart)
+		return;
 	movePlayers();
-	checkCollision();
 	moveBall();
+	checkCollision();
+}
+
+void Pong::newRound() {
+	m_playStart = 0;
+	m_player2.setPosition(sf::Vector2f(.05*m_screenX, .45*m_screenY));
+	m_player1.setPosition(sf::Vector2f(.93*m_screenX, .45*m_screenY));
+	m_ball.setPosition(sf::Vector2f(.5*m_screenX - m_ballRadius, .5*m_screenY - m_ballRadius));
 }

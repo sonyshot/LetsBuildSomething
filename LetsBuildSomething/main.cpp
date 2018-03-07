@@ -8,7 +8,7 @@ int main()
 	sf::Time sleepTime(sf::seconds(1.f / fps));
 	sf::Clock clock;
 
-	Pong pong;
+	Pong pong(500, 500);
 
 	sf::RenderWindow window(sf::VideoMode(1000, 1000), "board drawing test");
 
@@ -43,12 +43,14 @@ int main()
 
 /*
 
+Once finished with Pong, move on to creating the overview classes, statemanager and game
+
 Games to implement:
 -Pong
 -Space Invaders
 -Snake
 -Asteroids
 -Pac Man
--
+-...
 
 */
