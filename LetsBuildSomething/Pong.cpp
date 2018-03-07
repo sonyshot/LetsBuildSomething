@@ -19,7 +19,7 @@ Pong::Pong() {
 	m_ball.setFillColor(sf::Color::White);
 	m_ball.setPosition(sf::Vector2f(500, 500));
 	m_ball.setRadius(10);
-	m_ballXv = 10;
+	m_ballXv = 3;
 	m_ballYv = 5;
 }
 
@@ -96,7 +96,9 @@ void Pong::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 bool Pong::checkCollision() {
 	if (m_ball.getGlobalBounds().intersects(m_player1.getGlobalBounds())) {
 		m_ballXv = -1 * m_ballXv;
-	}
+		return true;
+	} else 
+	return false;
 }
 
 void Pong::movePlayers() {
@@ -147,5 +149,6 @@ void Pong::moveBall() {
 
 void Pong::update() {
 	movePlayers();
+	checkCollision();
 	moveBall();
 }
