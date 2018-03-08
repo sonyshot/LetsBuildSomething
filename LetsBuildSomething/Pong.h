@@ -12,6 +12,11 @@ class Pong : public Game {
 	sf::RectangleShape m_dividingLine;
 	sf::RectangleShape m_screen;
 
+	sf::Font m_font;
+	std::array<sf::Text, 2> m_scores;
+	int m_score1 = 0;
+	int m_score2 = 0;
+
 	int m_screenX = 1000;
 	int m_screenY = 1000;
 
@@ -49,8 +54,9 @@ public:
 
 /*
 TODO:
+-currently good enough for government work
 -comment!
--Scoreboard
+-Scoreboard (DONE)
 -more generality in the constructor (ie should the pong object be centered, settable starting velocities, etc.)
 -pause/exit menu
 -revisit update function

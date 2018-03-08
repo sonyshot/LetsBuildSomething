@@ -1,16 +1,16 @@
 #include <SFML\Graphics.hpp>
-#include "Pong.h"
+#include "StateManager.h"
 
 //test changes
 int main()
 {
 	float fps = 60.f;
 	sf::Time sleepTime(sf::seconds(1.f / fps));
-	sf::Clock clock;
+	sf::Clock clock;	
 
-	Pong pong(500, 500);
+	sf::RenderWindow window(sf::VideoMode(800, 800), "board drawing test");
 
-	sf::RenderWindow window(sf::VideoMode(1000, 1000), "board drawing test");
+	StateManager snm(&window);
 
 	while (window.isOpen())
 	{
@@ -24,14 +24,12 @@ int main()
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			};
-			pong.handleEvent(event);
+			snm.processEvent(event);
 		}
 		//maybe eventually wrap all the window loop into a gameState update function?
 		//might make animations more doable
-		pong.update();
-		window.clear();
-		window.draw(pong);
-		window.display();
+		snm.update();
+		snm.draw();
 		if (clock.getElapsedTime() < sleepTime)
 			sf::sleep(sleepTime - clock.getElapsedTime());
 

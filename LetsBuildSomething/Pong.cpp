@@ -1,6 +1,6 @@
 #include "Pong.h"
 
-
+//need to work on good generic constructor
 Pong::Pong() {
 	//player 2 on the left, because of the way I bound key inputs
 	m_player2.setFillColor(sf::Color::White);
@@ -24,6 +24,7 @@ Pong::Pong() {
 }
 
 Pong::Pong(int x, int y) {
+	
 	m_screen.setFillColor(sf::Color::Transparent);
 	m_screen.setOutlineColor(sf::Color::White);
 	m_screen.setOutlineThickness(1);
@@ -51,6 +52,19 @@ Pong::Pong(int x, int y) {
 	m_ball.setRadius(m_ballRadius);
 	m_ballXv = 3;
 	m_ballYv = 5;
+
+	if (!m_font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf"))
+		std::cout << "failed to load font" << std::endl;
+	
+
+	m_scores[0].setFont(m_font);
+	m_scores[0].setString(std::to_string(m_score1));
+	m_scores[0].setFillColor(sf::Color::White);
+	m_scores[0].setPosition(sf::Vector2f(.25*x, 700));
+	m_scores[1].setFont(m_font);
+	m_scores[1].setString(std::to_string(m_score2));
+	m_scores[1].setFillColor(sf::Color::White);
+	m_scores[1].setPosition(sf::Vector2f(.75*x, 700));
 }
 
 Pong::~Pong() {
@@ -124,6 +138,8 @@ void Pong::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(m_ball);
 	target.draw(m_dividingLine);
 	target.draw(m_screen);
+	target.draw(m_scores[0]);
+	target.draw(m_scores[1]);
 }
 
 bool Pong::checkCollision() {
@@ -137,11 +153,15 @@ bool Pong::checkCollision() {
 	}
 	if (m_ball.getGlobalBounds().left < 0) {
 		std::cout << "Player 2 point!" << std::endl;
+		m_score1 += 1;
+		m_scores[0].setString(std::to_string(m_score1));
 		newRound();
 		return true;
 	}
 	else if (m_ball.getGlobalBounds().left > m_screenX) {
 		std::cout << "Player 1 point!" << std::endl;
+		m_score2 += 1;
+		m_scores[1].setString(std::to_string(m_score2));
 		newRound();
 		return true;
 	}
@@ -157,6 +177,10 @@ void Pong::movePlayers() {
 	if (m_moving1[1]) {
 		//player 1 up
 		m_player1.move(sf::Vector2f(0, -m_paddleSpeed));
+		if (m_player1.getGlobalBounds().top < 0) {
+			m_player1.setPosition(sf::Vector2f(.93*m_screenX, 0));
+			m_moving1[1] = 0;
+		}
 	}
 	//if (m_moving1[2]) {
 	//	//player 1 right
@@ -165,6 +189,10 @@ void Pong::movePlayers() {
 	if (m_moving1[3]) {
 		//player 1 down
 		m_player1.move(sf::Vector2f(0, m_paddleSpeed));
+		if (m_player1.getGlobalBounds().top > .9*m_screenY) {
+			m_player1.setPosition(sf::Vector2f(.93*m_screenX, .9*m_screenY));
+			m_moving1[3] = 0;
+		}
 	}
 	//if (m_moving2[0]) {
 	//	//player 2 left
@@ -173,6 +201,10 @@ void Pong::movePlayers() {
 	if (m_moving2[1]) {
 		//player 2 up
 		m_player2.move(sf::Vector2f(0, -m_paddleSpeed));
+		if (m_player2.getGlobalBounds().top < 0) {
+			m_player2.setPosition(sf::Vector2f(.05*m_screenX, 0));
+			m_moving2[1] = 0;
+		}
 	}
 	//if (m_moving2[2]) {
 	//	//player 2 right
@@ -181,6 +213,10 @@ void Pong::movePlayers() {
 	if (m_moving2[3]) {
 		//player 2 down
 		m_player2.move(sf::Vector2f(0, m_paddleSpeed));
+		if (m_player2.getGlobalBounds().top > .9*m_screenY) {
+			m_player2.setPosition(sf::Vector2f(.05*m_screenX, .9*m_screenY));
+			m_moving2[3] = 0;
+		}
 	}
 }
 
