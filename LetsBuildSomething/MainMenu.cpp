@@ -24,6 +24,13 @@ MainMenu::MainMenu(StateManager * sm) {
 	m_headerText.setCharacterSize(64);
 	m_headerText.setPosition(sf::Vector2f(400 - m_headerText.getLocalBounds().width / 2, 100));
 
+	//ADD GAME'S TILE HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	m_selToStateMap[0] = PONGSTATE;
+	m_selToStateMap[1] = SNAKESTATE;
+	//GAME'S TITLE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	m_stateToNameMap[PONGSTATE] = "Pong";
+	m_stateToNameMap[SNAKESTATE] = "Snake";
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	m_buttons[m_currentSelection]->setOutlineThickness(5.f);
 
@@ -34,41 +41,39 @@ MainMenu::~MainMenu() {
 
 }
 
+void MainMenu::selectIcon(int offset) {
+	//takes offset in to determine which to select
+	m_buttons[m_currentSelection]->setOutlineThickness(0.f);
+	m_currentSelection = (m_currentSelection + m_numButtons + offset) % m_numButtons;
+	m_buttons[m_currentSelection]->setOutlineThickness(5.f);
+	if (m_stateToNameMap.count(m_selToStateMap[m_currentSelection]))
+		m_selectName.setString(m_stateToNameMap[m_selToStateMap[m_currentSelection]]);
+	else
+		m_selectName.setString("(unknown)");
+	m_selectName.setPosition(m_buttons[m_currentSelection]->getPosition());
+}
+
 void MainMenu::handleEvent(const sf::Event &e) {
 	switch (e.type) {
 
 	case sf::Event::KeyPressed:
 		//change selection; select game
-		//should i add up/down support?
+		//feels bad copypasting these lines, maybe make separate function?
 		if (e.key.code == sf::Keyboard::Left) {
-			//subtract from current selection
-			//replace mod with num choices variable
-			m_buttons[m_currentSelection]->setOutlineThickness(0.f);
-			m_currentSelection = (m_currentSelection + m_numButtons - 1) % m_numButtons;
-			m_buttons[m_currentSelection]->setOutlineThickness(5.f);
-			m_selectName.setPosition(m_buttons[m_currentSelection]->getPosition());
+			selectIcon(-1);
 		}
 		else if (e.key.code == sf::Keyboard::Right) {
-			//add to current selection
-			m_buttons[m_currentSelection]->setOutlineThickness(0.f);
-			m_currentSelection = (m_currentSelection + 1) % m_numButtons;
-			m_buttons[m_currentSelection]->setOutlineThickness(5.f);
-			m_selectName.setPosition(m_buttons[m_currentSelection]->getPosition());
+			selectIcon(1);
+		}
+		else if (e.key.code == sf::Keyboard::Up || e.key.code == sf::Keyboard::Down) {
+			//uses fact that each row has 3 icons with total of 6
+			selectIcon(3);
 		}
 		else if (e.key.code == sf::Keyboard::Return) {
-			chooseGame(m_currentSelection);
+			queueSwitch(m_selToStateMap[m_currentSelection]);
 		}
 		break;
 	}
-}
-
-void MainMenu::chooseGame(int choice) {
-	//ADD QUEUESWITCH CALL TO YOUR ENUM
-	if (choice == 0)
-		queueSwitch(PONGSTATE);
-	else if (choice == 1)
-		queueSwitch(SNAKESTATE);
-
 }
 
 void MainMenu::update() {

@@ -7,7 +7,7 @@
 #include "MainMenu.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//WHEN ADDING GAME: ADD STATE HERE, CONSTRUCTOR TO STATEMANAGER.CPP, ADD QUEUESWITCH TO MAINMENU's CHOOSEGAME()
+//WHEN ADDING GAME: ADD STATE HERE, CONSTRUCTOR TO STATEMANAGER.CPP, ADD ICON POSITION TO MAINMENU CONSTRUCTOR
 //MAKE YOUR SURE CONSTRUCTOR TAKES IN AND ASSIGNS THE STATEMANAGER POINTER TO m_stateManager
 enum PossibleStates { MENUSTATE, PONGSTATE, SNAKESTATE};
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,6 +41,12 @@ public:
 	void draw();
 };
 
-
+/*
+To do:
+-clean up/generalize constructor
+-proper title and backdrop
+-images for each game
+-...
+*/
 
 #endif

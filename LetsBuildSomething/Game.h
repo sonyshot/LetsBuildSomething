@@ -7,6 +7,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
+#include <unordered_map>
+#include <string>
 
 class StateManager;
 
@@ -22,13 +24,14 @@ protected:
 	void queueSwitch(PossibleStates);
 
 public:
+	virtual ~Game() = 0;
+
 	virtual void update() = 0;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 
 	virtual void handleEvent(const sf::Event &e) = 0;
 };
-
 
 
 #endif

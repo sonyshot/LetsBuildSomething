@@ -34,6 +34,9 @@ Snake::~Snake() {
 	for (sf::RectangleShape* line : m_horizontalLines) {
 		delete line;
 	}
+	for (sf::RectangleShape* snek : m_snake) {
+		delete snek;
+	}
 }
 
 
