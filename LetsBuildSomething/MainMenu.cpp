@@ -73,6 +73,21 @@ void MainMenu::handleEvent(const sf::Event &e) {
 			queueSwitch(m_selToStateMap[m_currentSelection]);
 		}
 		break;
+
+	case sf::Event::MouseMoved:
+		for (int i = 0; i < m_buttons.size(); i++) {
+			if (m_buttons[i]->getGlobalBounds().contains(sf::Vector2f(e.mouseMove.x, e.mouseMove.y))) {
+				selectIcon(i - m_currentSelection);
+				break;
+			}
+		}
+		break;
+
+	case sf::Event::MouseButtonPressed:
+		if (m_buttons[m_currentSelection]->getGlobalBounds().contains(e.mouseButton.x, e.mouseButton.y)) {
+			queueSwitch(m_selToStateMap[m_currentSelection]);
+		}
+		break;
 	}
 }
 
