@@ -1,6 +1,7 @@
 #include "MainMenu.h"
+#include "StateManager.h"
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu(StateManager * sm) {
 	m_button1.setFillColor(sf::Color(255, 100, 100));
 	m_button1.setPosition(sf::Vector2f(100, 100));
 	m_button1.setSize(sf::Vector2f(50, 50));
@@ -17,6 +18,8 @@ MainMenu::MainMenu() {
 	m_button3.setOutlineColor(sf::Color::White);
 
 	m_buttons[m_currentSelection]->setOutlineThickness(5.f);
+
+	m_stateManager = sm;
 }
 
 MainMenu::~MainMenu() {
@@ -42,8 +45,19 @@ void MainMenu::handleEvent(const sf::Event &e) {
 			m_currentSelection = (m_currentSelection + 1) % m_numButtons;
 			m_buttons[m_currentSelection]->setOutlineThickness(5.f);
 		}
+		else if (e.key.code == sf::Keyboard::Return) {
+			chooseGame(m_currentSelection);
+		}
 		break;
 	}
+}
+
+void MainMenu::chooseGame(int choice) {
+	//ADD QUEUESWITCH CALL TO YOUR ENUM
+	if (choice == 0)
+		queueSwitch(PONGSTATE);
+	else if (choice == 1)
+		return; //switch to snake
 }
 
 void MainMenu::update() {

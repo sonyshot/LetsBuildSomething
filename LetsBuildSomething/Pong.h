@@ -35,9 +35,10 @@ class Pong : public Game {
 	void newRound();
 
 public:
+	//inherits queueSwitch
 	Pong();
 
-	Pong(int sizeX, int sizeY);
+	Pong(int sizeX, int sizeY, StateManager *);
 
 	~Pong();
 

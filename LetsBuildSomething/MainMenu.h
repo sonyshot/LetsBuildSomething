@@ -14,10 +14,11 @@ class MainMenu : public Game {
 
 	int m_currentSelection = 0;
 
-	void chooseGame()
+	void chooseGame(int);
 
 public:
-	MainMenu();
+	//inherits queueswitch
+	MainMenu(StateManager *);
 
 	~MainMenu();
 

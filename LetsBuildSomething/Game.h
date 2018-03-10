@@ -8,10 +8,18 @@
 #include <stdio.h>
 #include <vector>
 
+class StateManager;
+
+enum PossibleStates;
+
 class Game : public sf::Drawable {
 	//base class for all games to be added to this hot mess
 	//any game that will exist just basically needs to be able to update, be drawn, and handle events
+protected:
 
+	StateManager * m_stateManager;
+
+	void queueSwitch(PossibleStates);
 
 public:
 	virtual void update() = 0;
