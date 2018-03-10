@@ -9,6 +9,7 @@ class Snake : public Game {
 	std::vector<sf::RectangleShape*> m_horizontalLines;
 	sf::RectangleShape background;
 
+	int count = 0;
 	int m_score = 0;
 	int m_snakeSize = 1;
 	int width;

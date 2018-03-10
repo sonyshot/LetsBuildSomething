@@ -83,10 +83,13 @@ void Snake::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	
 }
 void Snake::update() {
-	move();
+	if (count == 5) {
+		move();
+		count = 0;
+	}
 	checkOutOfBounds();
 	checkCollision();
-
+	count++;
 }
 
 void Snake::move() {
@@ -105,6 +108,7 @@ void Snake::move() {
 }
 
 bool Snake::checkCollision() {
+	
 	return false;
 }
 
