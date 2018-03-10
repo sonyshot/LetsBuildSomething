@@ -49,6 +49,12 @@ Games to implement:
 -Snake
 -Asteroids
 -Pac Man
+-tetris
+-cards?
 -...
+
+Other to do:
+-score tracking/stats
+
 
 */

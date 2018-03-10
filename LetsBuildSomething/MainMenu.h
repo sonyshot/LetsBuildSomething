@@ -6,11 +6,15 @@
 
 class MainMenu : public Game {
 
-	sf::RectangleShape m_button1, m_button2, m_button3, m_button4, m_button5;
+	sf::RectangleShape m_button1, m_button2, m_button3, m_button4, m_button5, m_button6;
 	//leave empty, fill with buttons? maybe better to just hardcode since it'll be constant anyway the start
-	std::vector<sf::RectangleShape*> m_buttons = { &m_button1, &m_button2, &m_button3, &m_button4, &m_button5 };
+	std::vector<sf::RectangleShape*> m_buttons = { &m_button1, &m_button2, &m_button3, &m_button4, &m_button5, &m_button6 };
 
-	int m_numButtons = 5;
+	sf::Font m_font;
+	sf::Text m_headerText;
+	sf::Text m_selectName;
+
+	int m_numButtons = 6;
 
 	int m_currentSelection = 0;
 
