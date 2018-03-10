@@ -63,11 +63,11 @@ Pong::Pong(int x, int y, StateManager * sm) {
 	m_scores[0].setFont(m_font);
 	m_scores[0].setString(std::to_string(m_score1));
 	m_scores[0].setFillColor(sf::Color::White);
-	m_scores[0].setPosition(sf::Vector2f(.25*x, 700));
+	m_scores[0].setPosition(sf::Vector2f(.75*x, 700));
 	m_scores[1].setFont(m_font);
 	m_scores[1].setString(std::to_string(m_score2));
 	m_scores[1].setFillColor(sf::Color::White);
-	m_scores[1].setPosition(sf::Vector2f(.75*x, 700));
+	m_scores[1].setPosition(sf::Vector2f(.25*x, 700));
 }
 
 Pong::~Pong() {
