@@ -5,21 +5,23 @@
 #include "Pong.h"
 #include "MainMenu.h"
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//WHEN ADDING GAME: ADD STATE HERE, CONSTRUCTOR TO STATEMANAGER.CPP, ADD QUEUESWITCH TO MAINMENU CHOOSEGAME()
+enum PossibleStates { MENUSTATE, PONGSTATE };
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class StateManager {
 	//contains the logic for switching between games, handling all that kinda stuff
 	//enum or enum class better?
 
-	//ADD YOUR GAME TO THIS ENUM, THAT WAY I CAN MAKE IT SELECTABLE IN THE MENU
-	enum PossibleStates{MENUSTATE, PONGSTATE};
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 	Game * m_currentGame;
 
-	PossibleStates m_gametype;
+	PossibleStates m_currentState;
+	PossibleStates m_nextState;
 
 	sf::RenderWindow * m_window;
 
-	void switchState();
+	void switchState(PossibleStates);
 
 public:
 	StateManager();
@@ -27,6 +29,8 @@ public:
 	StateManager(sf::RenderWindow *window);
 
 	~StateManager();
+
+	void queueSwitch(PossibleStates);
 
 	void processEvent(sf::Event &e);
 

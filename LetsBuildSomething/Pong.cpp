@@ -1,4 +1,5 @@
 #include "Pong.h"
+#include "StateManager.h"
 
 //need to work on good generic constructor
 Pong::Pong() {
@@ -23,8 +24,10 @@ Pong::Pong() {
 	m_ballYv = 5;
 }
 
-Pong::Pong(int x, int y) {
+Pong::Pong(int x, int y, StateManager * sm) {
 	
+	m_stateManager = sm;
+
 	m_screen.setFillColor(sf::Color::Transparent);
 	m_screen.setOutlineColor(sf::Color::White);
 	m_screen.setOutlineThickness(1);
@@ -100,6 +103,10 @@ void Pong::handleEvent(const sf::Event &e) {
 		}
 		else if (e.key.code == sf::Keyboard::S) {
 			m_moving2[3] = 1;
+		}
+		else if (e.key.code == sf::Keyboard::Escape) {
+			//baby come back
+			queueSwitch(MENUSTATE);
 		}
 		break;
 
