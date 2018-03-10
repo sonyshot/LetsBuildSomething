@@ -10,6 +10,7 @@ class Snake : public Game {
 	sf::RectangleShape background;
 
 	int m_score = 0;
+	int m_snakeSize = 1;
 	int width;
 	int height;
 	////////////////////////////up, right, down, left

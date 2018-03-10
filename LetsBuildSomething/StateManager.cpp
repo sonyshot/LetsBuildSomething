@@ -29,7 +29,7 @@ void StateManager::switchState(PossibleStates newState) {
 		m_currentState = newState;
 	}
 	else if (newState == SNAKESTATE) {
-		m_currentGame = new Snake(800, 600, this);
+		m_currentGame = new Snake(800, 800, this);
 		m_currentState = newState;
 	}
 }
