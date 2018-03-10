@@ -57,7 +57,8 @@ void MainMenu::chooseGame(int choice) {
 	if (choice == 0)
 		queueSwitch(PONGSTATE);
 	else if (choice == 1)
-		return; //switch to snake
+		queueSwitch(SNAKESTATE);
+	else return;
 }
 
 void MainMenu::update() {

@@ -28,6 +28,10 @@ void StateManager::switchState(PossibleStates newState) {
 		m_currentGame = new Pong(800, 600, this);
 		m_currentState = newState;
 	}
+	else if (newState == SNAKESTATE) {
+		m_currentGame = new Snake(800, 600, this);
+		m_currentState = newState;
+	}
 }
 
 void StateManager::queueSwitch(PossibleStates state) {

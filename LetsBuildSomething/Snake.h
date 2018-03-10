@@ -20,7 +20,7 @@ class Snake : public Game {
 	void stopMoving();
 
 public:
-	Snake(int sizeX, int sizeY);
+	Snake(int sizeX, int sizeY, StateManager * manager);
 
 	~Snake();
 

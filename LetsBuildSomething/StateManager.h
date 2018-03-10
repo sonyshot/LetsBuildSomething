@@ -3,11 +3,12 @@
 #define STATEMANAGER_H
 
 #include "Pong.h"
+#include "Snake.h"
 #include "MainMenu.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //WHEN ADDING GAME: ADD STATE HERE, CONSTRUCTOR TO STATEMANAGER.CPP, ADD QUEUESWITCH TO MAINMENU CHOOSEGAME()
-enum PossibleStates { MENUSTATE, PONGSTATE };
+enum PossibleStates { MENUSTATE, PONGSTATE, SNAKESTATE};
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class StateManager {
