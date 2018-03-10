@@ -40,7 +40,7 @@ void GameStateManager::keyPressed(sf::Event &e) {
 }
 
 void GameStateManager::update() {
-	
+	m_gameStates[m_currentState]->update();
 }
 
 void GameStateManager::draw() {

@@ -125,6 +125,7 @@
     <ClCompile Include="GameStateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cell.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Pong.h" />

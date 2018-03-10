@@ -38,7 +38,7 @@ class Pong : public GameState {
 public:
 	Pong(GameStateManager *m_gsm);
 
-	Pong(int x, int y);
+	void init(int x, int y);
 
 	~Pong();
 
