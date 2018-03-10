@@ -12,6 +12,7 @@ class Snake : public Game {
 	int count = 0;
 	int m_score = 0;
 	int m_snakeSize = 1;
+	bool m_gameOver = false;
 	int width;
 	int height;
 	////////////////////////////up, right, down, left
@@ -20,6 +21,7 @@ class Snake : public Game {
 	bool checkCollision();
 	void move();
 	void stopMoving();
+	void gameOver();
 
 public:
 	Snake(int sizeX, int sizeY, StateManager * manager);

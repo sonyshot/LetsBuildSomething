@@ -21,7 +21,7 @@ Snake::Snake(int x, int y, StateManager * manager) {
 		m_horizontalLines[i]->setPosition(sf::Vector2f(0, 40 * i));
 	}
 	m_snake.push_back(new sf::RectangleShape);
-	m_snake[m_snakeSize - 1]->setFillColor(sf::Color::Yellow);
+	m_snake[m_snakeSize - 1]->setFillColor(sf::Color(200, 200, 0));
 	m_snake[m_snakeSize - 1]->setSize(sf::Vector2f(40, 40));
 	m_snake[m_snakeSize - 1]->setPosition(sf::Vector2f(400, 400));
 
@@ -79,17 +79,31 @@ void Snake::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	for (sf::RectangleShape* line : m_horizontalLines) {
 		target.draw(*line);
 	}
-
+	if (m_gameOver) {
+		sf::Font font;
+		sf::Text text;
+		font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf");
+		text.setString("Game Over! Escape to exit");
+		text.setFont(font);
+		text.setPosition(200, 400);
+		target.draw(text);
+	}
 	
 }
 void Snake::update() {
-	if (count == 5) {
-		move();
-		count = 0;
+	if (!m_gameOver) {
+		if (count == 5) {
+			move();
+			count = 0;
+		}
+		if (checkOutOfBounds()) {
+			gameOver();
+		}
+		if (checkCollision()) {
+			gameOver();
+		}
+		count++;
 	}
-	checkOutOfBounds();
-	checkCollision();
-	count++;
 }
 
 void Snake::move() {
@@ -108,10 +122,25 @@ void Snake::move() {
 }
 
 bool Snake::checkCollision() {
-	
 	return false;
 }
 
 bool Snake::checkOutOfBounds() {
+	if (m_snake[0]->getGlobalBounds().top < 0) {
+		return true;
+	}
+	if (m_snake[0]->getGlobalBounds().top + 40 > 800) {
+		return true;
+	}
+	if (m_snake[0]->getGlobalBounds().left < 0) {
+		return true;
+	}
+	if (m_snake[0]->getGlobalBounds().left + 40 > 800) {
+		return true;
+	}
 	return false;
+}
+
+void Snake::gameOver() {
+	m_gameOver = true;
 }
