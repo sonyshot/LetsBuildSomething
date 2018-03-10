@@ -2,9 +2,10 @@
 #ifndef PONG_H
 #define PONG_H
 
-#include "Game.h"
+#include "GameStateManager.h"
 
-class Pong : public Game {
+class Pong : public GameState {
+	GameStateManager *gsm;
 
 	sf::RectangleShape m_player1;
 	sf::RectangleShape m_player2;
@@ -35,15 +36,15 @@ class Pong : public Game {
 	void newRound();
 
 public:
-	Pong();
+	Pong(GameStateManager *m_gsm);
 
-	Pong(int sizeX, int sizeY);
+	Pong(int x, int y);
 
 	~Pong();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	void handleEvent(const sf::Event &e);
+	void keyPressed(const sf::Event &e);
 
 	void update();
 };

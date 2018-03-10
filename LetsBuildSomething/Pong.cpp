@@ -1,26 +1,29 @@
 #include "Pong.h"
 
 //need to work on good generic constructor
-Pong::Pong() {
-	//player 2 on the left, because of the way I bound key inputs
-	m_player2.setFillColor(sf::Color::White);
-	m_player2.setPosition(sf::Vector2f(50, 450));
-	m_player2.setSize(sf::Vector2f(20, 80));
+Pong::Pong(GameStateManager *m_gsm) {
+	gsm = m_gsm;
+	if (gsm->getState() == 1) {
+		//player 2 on the left, because of the way I bound key inputs
+		m_player2.setFillColor(sf::Color::White);
+		m_player2.setPosition(sf::Vector2f(50, 450));
+		m_player2.setSize(sf::Vector2f(20, 80));
 
-	//player 1 on the right...
-	m_player1.setFillColor(sf::Color::White);
-	m_player1.setPosition(sf::Vector2f(900, 450));
-	m_player1.setSize(sf::Vector2f(20, 80));
+		//player 1 on the right...
+		m_player1.setFillColor(sf::Color::White);
+		m_player1.setPosition(sf::Vector2f(900, 450));
+		m_player1.setSize(sf::Vector2f(20, 80));
 
-	m_dividingLine.setFillColor(sf::Color::White);
-	m_dividingLine.setPosition(sf::Vector2f(497, 0));
-	m_dividingLine.setSize(sf::Vector2f(6, 1000));
+		m_dividingLine.setFillColor(sf::Color::White);
+		m_dividingLine.setPosition(sf::Vector2f(497, 0));
+		m_dividingLine.setSize(sf::Vector2f(6, 1000));
 
-	m_ball.setFillColor(sf::Color::White);
-	m_ball.setPosition(sf::Vector2f(500, 500));
-	m_ball.setRadius(10);
-	m_ballXv = 3;
-	m_ballYv = 5;
+		m_ball.setFillColor(sf::Color::White);
+		m_ball.setPosition(sf::Vector2f(500, 500));
+		m_ball.setRadius(10);
+		m_ballXv = 3;
+		m_ballYv = 5;
+	}
 }
 
 Pong::Pong(int x, int y) {
@@ -71,7 +74,7 @@ Pong::~Pong() {
 	
 }
 
-void Pong::handleEvent(const sf::Event &e) {
+void Pong::keyPressed(const sf::Event &e) {
 	switch (e.type) {
 
 	case sf::Event::KeyPressed:
@@ -101,6 +104,10 @@ void Pong::handleEvent(const sf::Event &e) {
 		else if (e.key.code == sf::Keyboard::S) {
 			m_moving2[3] = 1;
 		}
+		else if (e.key.code == sf::Keyboard::Escape) {
+			gsm->setState(0);
+		}
+		
 		break;
 
 	case sf::Event::KeyReleased:
