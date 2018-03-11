@@ -5,11 +5,12 @@
 #include "Pong.h"
 #include "Snake.h"
 #include "MainMenu.h"
+#include "Tetris.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //WHEN ADDING GAME: ADD STATE HERE, CONSTRUCTOR TO STATEMANAGER.CPP, ADD ICON POSITION TO MAINMENU CONSTRUCTOR
 //MAKE YOUR SURE CONSTRUCTOR TAKES IN AND ASSIGNS THE STATEMANAGER POINTER TO m_stateManager
-enum PossibleStates { MENUSTATE, PONGSTATE, SNAKESTATE};
+enum PossibleStates { MENUSTATE, PONGSTATE, SNAKESTATE, TETRISSTATE};
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class StateManager {

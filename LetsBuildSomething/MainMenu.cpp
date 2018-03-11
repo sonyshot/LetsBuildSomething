@@ -27,9 +27,11 @@ MainMenu::MainMenu(StateManager * sm) {
 	//ADD GAME'S TILE HERE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	m_selToStateMap[0] = PONGSTATE;
 	m_selToStateMap[1] = SNAKESTATE;
+	m_selToStateMap[2] = TETRISSTATE;
 	//GAME'S TITLE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	m_stateToNameMap[PONGSTATE] = "Pong";
 	m_stateToNameMap[SNAKESTATE] = "Snake";
+	m_stateToNameMap[TETRISSTATE] = "Tetris";
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	m_buttons[m_currentSelection]->setOutlineThickness(5.f);

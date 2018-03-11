@@ -32,6 +32,10 @@ void StateManager::switchState(PossibleStates newState) {
 		m_currentGame = new Snake(800, 800, this);
 		m_currentState = newState;
 	}
+	else if (newState == TETRISSTATE) {
+		m_currentGame = new Tetris(this);
+		m_currentState = TETRISSTATE;
+	}
 }
 
 void StateManager::queueSwitch(PossibleStates state) {

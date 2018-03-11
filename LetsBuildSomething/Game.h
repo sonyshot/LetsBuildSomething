@@ -8,6 +8,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include <math.h>
 
 class StateManager;
 
