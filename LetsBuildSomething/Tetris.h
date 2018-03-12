@@ -3,22 +3,36 @@
 #define TETRIS_H
 
 #include "Game.h"
+#include "TetrisPiece.h"
 
 class Tetris :public Game {
 	//1 is long, 2 is "L", 3 is mirror of "L", 4 is the fork one, 5 is square, 6 is steps, 7 is mirror of steps
-	enum PieceType{PIECE1, PIECE2, PIECE3, PIECE4, PIECE5, PIECE6, PIECE7};
 
-	std::array<bool, 300> m_filledGrid{};
-	std::vector<sf::VertexArray*> m_blocks;
+	std::array<bool, 300> m_filledGrid;
+	sf::VertexArray m_blocks;
+	//instead of this, should there be separate arrays for each row?
 
-	std::array<sf::VertexArray*, 4> m_nextPiece;
+	sf::RectangleShape m_backdrop;
+
+	int m_interval = 30;
+	int m_frames = 0;
 
 	void createNextPiece(PieceType);
 
-	int m_blockSize = 10;
+	void movePiece(int x, int y);
+	void rotatePiece();
+	bool checkCollision(int moveX, int moveY);
+	void clearRow(int);
+
+	int m_blockSize = 20;
 	int m_pieceStartxPos = 400;
 	int m_pieceStartyPos = 400;
 
+	bool m_paused = 0;
+
+	TetrisPiece m_piece;
+
+	void pieceToBlocks();
 
 public:
 	Tetris(StateManager*);

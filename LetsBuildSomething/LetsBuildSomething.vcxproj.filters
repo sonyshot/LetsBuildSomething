@@ -13,48 +13,78 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Interface Headers">
+      <UniqueIdentifier>{1cc5d94f-6d20-4035-95b4-ea76f796837d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pong Headers">
+      <UniqueIdentifier>{2cc20c95-43ac-40a1-9b99-3e1583d111c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Snake Headers">
+      <UniqueIdentifier>{68643614-7063-4841-b284-370d284b2485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tetris Headers">
+      <UniqueIdentifier>{3fa8b14a-cadb-4c24-97a5-21a662cf7f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface Sources">
+      <UniqueIdentifier>{5f1bec3a-2285-49f4-b810-ac3e85c2fdba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pong Sources">
+      <UniqueIdentifier>{a659d4a5-f3d0-4b58-b747-4af75a2b7f00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Snake Sources">
+      <UniqueIdentifier>{57efa8cc-2017-448f-ab77-ab86669389b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tetris Sources">
+      <UniqueIdentifier>{8aa46276-78b1-4c7e-ba96-62ad1c2679b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pong.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StateManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Interface Sources</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Interface Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>Source Files\Interface Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pong.cpp">
+      <Filter>Source Files\Pong Sources</Filter>
     </ClCompile>
     <ClCompile Include="Snake.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Snake Sources</Filter>
     </ClCompile>
     <ClCompile Include="Tetris.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tetris Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TetrisPiece.cpp">
+      <Filter>Source Files\Tetris Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Interface Headers</Filter>
+    </ClInclude>
     <ClInclude Include="StateManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interface Headers</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Interface Headers</Filter>
     </ClInclude>
     <ClInclude Include="Pong.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Pong Headers</Filter>
     </ClInclude>
     <ClInclude Include="Snake.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Snake Headers</Filter>
     </ClInclude>
     <ClInclude Include="Tetris.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Tetris Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TetrisPiece.h">
+      <Filter>Header Files\Tetris Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
