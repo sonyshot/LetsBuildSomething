@@ -26,10 +26,10 @@ void Tetris::movePiece(int x, int y) {
 }
 
 void Tetris::rotatePiece() {
-
+	m_piece.rotatePiece();
 }
 
-bool Tetris::checkCollision(int moveX, int moveY) {
+bool Tetris::checkCollision(int moveX, int moveY, bool isRotation = 0) {
 	//check if any of the blocks of the piece have something beneath them
 	//more generally, check if blocks have something in the direction theyre moving
 	for (int i = 0; i < 4; i++) {
@@ -37,6 +37,8 @@ bool Tetris::checkCollision(int moveX, int moveY) {
 		int blockX = m_piece.getPosition().x / m_blockSize + m_piece.getBlockPositions()[2*i] - 15;
 		int blockY = m_piece.getPosition().y / m_blockSize + m_piece.getBlockPositions()[2*i + 1];
 		//grid is 10x30, thats where these hardcoded numbers come from
+		if (isRotation && (blockX + moveX + m_piece.rotateGrowth() > 9))
+			return true;
 		if (blockY + moveY == 30)
 			return true;
 		if ((blockX + moveX < 0) || (blockX + moveX > 9))
@@ -48,7 +50,8 @@ bool Tetris::checkCollision(int moveX, int moveY) {
 }
 
 void Tetris::clearRow(int row) {
-
+	//looking like the way to go is to dupe m_blocks, clear m_blocks, loop and only include vertices not in that row, shift them down
+	//if not the way mentioned above, then maybe need to have separate objects store rows and just wipe those as theyre filled
 }
 
 void Tetris::pieceToBlocks() {
@@ -99,7 +102,8 @@ void Tetris::handleEvent(const sf::Event &e) {
 			}
 		}
 		else if (e.key.code == sf::Keyboard::Up) {
-			rotatePiece();
+			if (!checkCollision(0, 0, 1))
+				rotatePiece();
 		}
 		else if (e.key.code == sf::Keyboard::Escape) {
 			queueSwitch(MENUSTATE);

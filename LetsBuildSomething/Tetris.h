@@ -21,7 +21,7 @@ class Tetris :public Game {
 
 	void movePiece(int x, int y);
 	void rotatePiece();
-	bool checkCollision(int moveX, int moveY);
+	bool checkCollision(int moveX, int moveY, bool);
 	void clearRow(int);
 
 	int m_blockSize = 20;
