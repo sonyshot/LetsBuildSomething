@@ -49,9 +49,50 @@ bool Tetris::checkCollision(int moveX, int moveY, bool isRotation = 0) {
 	return false;
 }
 
+int Tetris::rowsToClear() {
+	//hardcoded 30 rows~ and 10 columns~~~~~~~~~~~~~~
+	for (int i = 0; i < 30; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (!m_filledGrid[j + i * 10])
+				break;
+			if (j == 9)
+				return i;
+		}
+	}
+	return -1;
+}
+
 void Tetris::clearRow(int row) {
 	//looking like the way to go is to dupe m_blocks, clear m_blocks, loop and only include vertices not in that row, shift them down
 	//if not the way mentioned above, then maybe need to have separate objects store rows and just wipe those as theyre filled
+	sf::VertexArray storBlocks = m_blocks;
+	m_blocks.clear();
+	for (int i = 29; i > 0; i--) {
+		if (i > row)
+			continue;
+		for (int j = 0; j < 10; j++) {
+			m_filledGrid[j + i * 10] = m_filledGrid[j + (i-1) * 10];
+			if (i == 1)
+				m_filledGrid[j] = 0;
+		}
+	}
+
+	for (int i = 0; i < storBlocks.getVertexCount()/4; i++) {
+		//hardcoding for 10x30 grid with size 20 blocks
+		int quadRow = storBlocks[4 * i].position.y / 20;
+		if (quadRow == row)
+			continue;
+		for (int j = 0; j < 4; j++) {
+			if (quadRow > row) {
+				m_blocks.append(sf::Vertex(storBlocks[j + 4 * i]));
+			}
+			else {
+				sf::Vector2f offset(0, m_blockSize);
+				m_blocks.append(sf::Vertex(sf::Vector2f(storBlocks[j + 4 * i].position)+offset));
+			}
+
+		}
+	}
 }
 
 void Tetris::pieceToBlocks() {
@@ -73,6 +114,9 @@ void Tetris::update() {
 			m_frames = 0;
 			if (checkCollision(0, 1)) {
 				pieceToBlocks();
+				int test = rowsToClear();
+				if (test != -1)
+					clearRow(test);
 				createNextPiece(PIECE4);
 			}
 			movePiece(0, 1);
