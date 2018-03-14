@@ -115,8 +115,10 @@ void Tetris::update() {
 			if (checkCollision(0, 1)) {
 				pieceToBlocks();
 				int test = rowsToClear();
-				if (test != -1)
+				while (test != -1) {
 					clearRow(test);
+					test = rowsToClear();
+				}
 				createNextPiece(PIECE4);
 			}
 			movePiece(0, 1);
