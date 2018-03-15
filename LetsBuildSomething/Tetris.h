@@ -35,6 +35,7 @@ class Tetris :public Game {
 	TetrisPiece m_piece;
 
 	void pieceToBlocks();
+	void isGameOver();
 
 public:
 	Tetris(StateManager*);

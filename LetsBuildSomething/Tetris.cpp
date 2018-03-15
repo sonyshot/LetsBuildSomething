@@ -62,6 +62,13 @@ int Tetris::rowsToClear() {
 	return -1;
 }
 
+void Tetris::isGameOver() {
+	if(checkCollision(0, 1)){
+		//gameover screen eventually
+		queueSwitch(MENUSTATE);
+	}
+}
+
 void Tetris::clearRow(int row) {
 	//looking like the way to go is to dupe m_blocks, clear m_blocks, loop and only include vertices not in that row, shift them down
 	//if not the way mentioned above, then maybe need to have separate objects store rows and just wipe those as theyre filled
@@ -109,9 +116,11 @@ void Tetris::pieceToBlocks() {
 
 void Tetris::update() {
 	//need a better way to wait 30 frames before doing stuff
+	//update gettin a litttle long, maybe divide up the work
 	if (!m_paused) {
 		if (++m_frames / 30 >= 1) {
 			m_frames = 0;
+			//forced movement, move into own function?
 			if (checkCollision(0, 1)) {
 				pieceToBlocks();
 				int test = rowsToClear();
@@ -120,8 +129,11 @@ void Tetris::update() {
 					test = rowsToClear();
 				}
 				createNextPiece(PIECE4);
+				isGameOver();
 			}
-			movePiece(0, 1);
+			else {
+				movePiece(0, 1);
+			}
 		}
 	}
 	//move piece according to input (handled elsewhere currently)
