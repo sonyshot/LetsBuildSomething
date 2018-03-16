@@ -17,11 +17,15 @@ class TetrisPiece :public sf::Drawable, public sf::Transformable{
 
 	std::array<int, 8> m_blockPositions;
 
+	sf::Color randomColor();
+
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
 	TetrisPiece(PieceType, int);
 
 	~TetrisPiece();
+
+	sf::Color m_color = randomColor();
 
 	sf::Vertex operator[](int index);
 
@@ -37,3 +41,7 @@ public:
 
 
 #endif // !TETRISPIECE_H
+
+/*
+Clean up color access, fix rotation
+*/

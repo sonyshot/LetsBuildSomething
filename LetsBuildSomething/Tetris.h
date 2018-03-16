@@ -13,11 +13,13 @@ class Tetris :public Game {
 	//instead of this, should there be separate arrays for each row?
 
 	sf::RectangleShape m_backdrop;
+	sf::RectangleShape m_gameOverLay;
 
 	int m_interval = 30;
 	int m_frames = 0;
 
 	void createNextPiece(PieceType);
+	PieceType randomPiece();
 
 	void movePiece(int x, int y);
 	void rotatePiece();
@@ -31,6 +33,7 @@ class Tetris :public Game {
 	int m_pieceStartyPos = 400;
 
 	bool m_paused = 0;
+	bool m_gameOver = 0;
 
 	TetrisPiece m_piece;
 
@@ -51,3 +54,7 @@ public:
 
 
 #endif
+
+/*
+Still need to implement increasing drop speed, fix rotations, check RNG as it seems weird, scoring
+*/

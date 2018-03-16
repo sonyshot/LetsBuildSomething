@@ -9,6 +9,7 @@ TetrisPiece::~TetrisPiece() {
 }
 
 void TetrisPiece::rotatePiece() {
+	//rotation not perfect :(
 	for (int j = 0; j < 4; j++) {
 		int newX = m_rows - m_blockPositions[2 * j + 1] - 1;
 
@@ -24,6 +25,16 @@ void TetrisPiece::rotatePiece() {
 	int tempRow = m_cols;
 	m_cols = m_rows;
 	m_rows = tempRow;
+}
+
+sf::Color TetrisPiece::randomColor() {
+	int choice = rand() % 3;
+	if (choice == 0)
+		return sf::Color::Red;
+	else if (choice== 1)
+		return sf::Color::Blue;
+	else if (choice == 2)
+		return sf::Color::White;
 }
 
 int TetrisPiece::rotateGrowth() {
@@ -51,6 +62,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4*j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
@@ -67,6 +79,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4 * j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
@@ -83,6 +96,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4 * j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
@@ -99,6 +113,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4 * j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
@@ -115,6 +130,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4 * j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
@@ -131,6 +147,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4 * j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
@@ -147,6 +164,7 @@ void TetrisPiece::createPiece(PieceType type) {
 				//using these allows us to set the quad corners clockwise
 				int xiIter = ((i + 1) / 2) % 2;
 				int yiIter = i / 2;
+				m_vertices[i + 4 * j].color = m_color;
 				m_vertices[i + 4 * j].position = sf::Vector2f(m_blockSize * (xjIters[j] + xiIter), m_blockSize * (yjIters[j] + yiIter));
 			}
 		}
