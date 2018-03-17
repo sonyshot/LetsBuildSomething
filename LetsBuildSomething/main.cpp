@@ -4,6 +4,7 @@
 //test changes
 int main()
 {
+	srand(NULL);
 	float fps = 60.f;
 	sf::Time sleepTime(sf::seconds(1.f / fps));
 	sf::Clock clock;	

@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Tetris Sources">
       <UniqueIdentifier>{8aa46276-78b1-4c7e-ba96-62ad1c2679b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{f6fb3547-413b-4f79-83fd-4b1ee8645f4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{608cecd9-0513-4258-a84a-a63bc268ce31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="TetrisPiece.cpp">
       <Filter>Source Files\Tetris Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h">
@@ -85,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="TetrisPiece.h">
       <Filter>Header Files\Tetris Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

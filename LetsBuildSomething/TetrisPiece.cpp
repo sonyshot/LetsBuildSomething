@@ -85,8 +85,8 @@ void TetrisPiece::createPiece(PieceType type) {
 		}
 	}
 	else if (type == PIECE3) {
-		m_rows = 4;
-		m_cols = 1;
+		m_rows = 3;
+		m_cols = 2;
 		std::array<int, 4> xjIters{ 1, 1, 1, 0 };
 		std::array<int, 4> yjIters{ 0, 1, 2, 2 };
 		for (int j = 0; j < 4; j++) {
