@@ -17,9 +17,6 @@ class Pong : public Game {
 	int m_score1 = 0;
 	int m_score2 = 0;
 
-	int m_screenX = 1000;
-	int m_screenY = 1000;
-
 	int m_playStart = 0;
 	std::array<bool, 4> m_moving1 = { 0, 0, 0 ,0 };
 	std::array<bool, 4> m_moving2 = { 0, 0, 0, 0 };
@@ -38,7 +35,7 @@ public:
 	//inherits queueSwitch
 	Pong();
 
-	Pong(int sizeX, int sizeY, StateManager *);
+	Pong(sf::Vector2f pos, sf::Vector2f size, StateManager *);
 
 	~Pong();
 

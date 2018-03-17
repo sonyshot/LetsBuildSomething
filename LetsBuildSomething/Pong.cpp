@@ -24,35 +24,38 @@ Pong::Pong() {
 	m_ballYv = 5;
 }
 
-Pong::Pong(int x, int y, StateManager * sm) {
+Pong::Pong(sf::Vector2f position, sf::Vector2f size, StateManager * sm) {
 	
+	//transform inputs to screen width and height
+	m_screenX = position.x;
+	m_screenW = size.x;
+	m_screenY = position.y;
+	m_screenH = size.y;
 	m_stateManager = sm;
 
 	m_screen.setFillColor(sf::Color::Transparent);
 	m_screen.setOutlineColor(sf::Color::White);
 	m_screen.setOutlineThickness(1);
-	m_screen.setSize(sf::Vector2f(x, y));
-	//should probably set the screen variables and then use them throughout the constructor, but whatevs
-	m_screenX = x;
-	m_screenY = y;
+	m_screen.setSize(sf::Vector2f(m_screenW, m_screenH));
 
 	m_player2.setFillColor(sf::Color::White);
-	m_player2.setPosition(sf::Vector2f(.05*x, .45*y));
-	m_player2.setSize(sf::Vector2f(.02*x,.1*y));
+	m_player2.setPosition(sf::Vector2f(m_screenX +.05*m_screenW, m_screenY + .45*m_screenH));
+	m_player2.setSize(sf::Vector2f(.02*m_screenW,.1*m_screenH));
 
 	//player 1 on the right...
 	m_player1.setFillColor(sf::Color::White);
-	m_player1.setPosition(sf::Vector2f(.93*x, .45*y));
-	m_player1.setSize(sf::Vector2f(.02*x, .1*y));
+	m_player1.setPosition(sf::Vector2f(m_screenX + .93*m_screenW, m_screenY + .45*m_screenH));
+	m_player1.setSize(sf::Vector2f(.02*m_screenW, .1*m_screenH));
 
 	m_dividingLine.setFillColor(sf::Color::White);
-	m_dividingLine.setPosition(sf::Vector2f(.5*x - 1, 0));
-	m_dividingLine.setSize(sf::Vector2f(2, y));
+	m_dividingLine.setPosition(sf::Vector2f(m_screenX + .5*m_screenW - 1, m_screenY));
+	m_dividingLine.setSize(sf::Vector2f(2, m_screenH));
 
-	m_ballRadius = .01*x;
+	m_ballRadius = .01*m_screenW;
 	m_ball.setFillColor(sf::Color::White);
-	m_ball.setPosition(sf::Vector2f(.5*x - m_ballRadius, .5*y - m_ballRadius));
+	m_ball.setPosition(sf::Vector2f(m_screenX + .5*m_screenW - m_ballRadius, m_screenY + .5*m_screenH - m_ballRadius));
 	m_ball.setRadius(m_ballRadius);
+	//random starting velocity?
 	m_ballXv = 3;
 	m_ballYv = 5;
 
@@ -63,11 +66,11 @@ Pong::Pong(int x, int y, StateManager * sm) {
 	m_scores[0].setFont(m_font);
 	m_scores[0].setString(std::to_string(m_score1));
 	m_scores[0].setFillColor(sf::Color::White);
-	m_scores[0].setPosition(sf::Vector2f(.75*x, 700));
+	m_scores[0].setPosition(sf::Vector2f(.75*m_screenX, 700));
 	m_scores[1].setFont(m_font);
 	m_scores[1].setString(std::to_string(m_score2));
 	m_scores[1].setFillColor(sf::Color::White);
-	m_scores[1].setPosition(sf::Vector2f(.25*x, 700));
+	m_scores[1].setPosition(sf::Vector2f(.25*m_screenY, 700));
 }
 
 Pong::~Pong() {
@@ -158,14 +161,14 @@ bool Pong::checkCollision() {
 		m_ballXv = -1 * m_ballXv;
 		return true;
 	}
-	if (m_ball.getGlobalBounds().left < 0) {
+	if (m_ball.getGlobalBounds().left < m_screenX) {
 		std::cout << "Player 2 point!" << std::endl;
 		m_score1 += 1;
 		m_scores[0].setString(std::to_string(m_score1));
 		newRound();
 		return true;
 	}
-	else if (m_ball.getGlobalBounds().left > m_screenX) {
+	else if (m_ball.getGlobalBounds().left > m_screenX + m_screenW) {
 		std::cout << "Player 1 point!" << std::endl;
 		m_score2 += 1;
 		m_scores[1].setString(std::to_string(m_score2));
@@ -184,8 +187,8 @@ void Pong::movePlayers() {
 	if (m_moving1[1]) {
 		//player 1 up
 		m_player1.move(sf::Vector2f(0, -m_paddleSpeed));
-		if (m_player1.getGlobalBounds().top < 0) {
-			m_player1.setPosition(sf::Vector2f(.93*m_screenX, 0));
+		if (m_player1.getGlobalBounds().top < m_screenY) {
+			m_player1.setPosition(sf::Vector2f(m_screenX + .93*m_screenW, m_screenY));
 			m_moving1[1] = 0;
 		}
 	}
@@ -196,8 +199,8 @@ void Pong::movePlayers() {
 	if (m_moving1[3]) {
 		//player 1 down
 		m_player1.move(sf::Vector2f(0, m_paddleSpeed));
-		if (m_player1.getGlobalBounds().top > .9*m_screenY) {
-			m_player1.setPosition(sf::Vector2f(.93*m_screenX, .9*m_screenY));
+		if (m_player1.getGlobalBounds().top > m_screenY + .9*m_screenH) {
+			m_player1.setPosition(sf::Vector2f(m_screenX + .93*m_screenW, m_screenY + .9*m_screenH));
 			m_moving1[3] = 0;
 		}
 	}
@@ -208,8 +211,8 @@ void Pong::movePlayers() {
 	if (m_moving2[1]) {
 		//player 2 up
 		m_player2.move(sf::Vector2f(0, -m_paddleSpeed));
-		if (m_player2.getGlobalBounds().top < 0) {
-			m_player2.setPosition(sf::Vector2f(.05*m_screenX, 0));
+		if (m_player2.getGlobalBounds().top < m_screenY) {
+			m_player2.setPosition(sf::Vector2f(m_screenX + .05*m_screenW, m_screenY));
 			m_moving2[1] = 0;
 		}
 	}
@@ -220,8 +223,8 @@ void Pong::movePlayers() {
 	if (m_moving2[3]) {
 		//player 2 down
 		m_player2.move(sf::Vector2f(0, m_paddleSpeed));
-		if (m_player2.getGlobalBounds().top > .9*m_screenY) {
-			m_player2.setPosition(sf::Vector2f(.05*m_screenX, .9*m_screenY));
+		if (m_player2.getGlobalBounds().top > m_screenY + .9*m_screenH) {
+			m_player2.setPosition(sf::Vector2f(m_screenX + .05*m_screenW, m_screenY + .9*m_screenH));
 			m_moving2[3] = 0;
 		}
 	}
@@ -233,7 +236,7 @@ void Pong::moveBall() {
 	//	m_ballXv = -1 * m_ballXv;
 	//	std::cout << "Point" << std::endl;
 	//}
-	if ((m_ball.getGlobalBounds().top < 0) || (m_ball.getGlobalBounds().top > m_screenY - 2*m_ballRadius)) {
+	if ((m_ball.getGlobalBounds().top < m_screenY) || (m_ball.getGlobalBounds().top > m_screenY + m_screenH - 2*m_ballRadius)) {
 		m_ballYv = -1 * m_ballYv;
 	}
 }
@@ -249,7 +252,7 @@ void Pong::update() {
 
 void Pong::newRound() {
 	m_playStart = 0;
-	m_player2.setPosition(sf::Vector2f(.05*m_screenX, .45*m_screenY));
-	m_player1.setPosition(sf::Vector2f(.93*m_screenX, .45*m_screenY));
-	m_ball.setPosition(sf::Vector2f(.5*m_screenX - m_ballRadius, .5*m_screenY - m_ballRadius));
+	m_player2.setPosition(sf::Vector2f(m_screenX + .05*m_screenW, m_screenY + .45*m_screenH));
+	m_player1.setPosition(sf::Vector2f(m_screenX + .93*m_screenW, m_screenY + .45*m_screenH));
+	m_ball.setPosition(sf::Vector2f(m_screenX + .5*m_screenW - m_ballRadius, m_screenY + .5*m_screenH - m_ballRadius));
 }
