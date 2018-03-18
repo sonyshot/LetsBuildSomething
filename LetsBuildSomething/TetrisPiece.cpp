@@ -48,7 +48,12 @@ std::array<int, 8> TetrisPiece::getBlockPositions() {
 	return m_blockPositions;
 }
 
+PieceType TetrisPiece::getPieceType() {
+	return m_pieceType;
+}
+
 void TetrisPiece::createPiece(PieceType type) {
+	m_pieceType = type;
 	if (type == PIECE1) {
 		m_rows = 4;
 		m_cols = 1;
