@@ -9,7 +9,6 @@ TetrisPiece::~TetrisPiece() {
 }
 
 void TetrisPiece::rotatePiece() {
-	//rotation not perfect :(
 	for (int j = 0; j < 4; j++) {
 		int newX = m_rows - m_blockPositions[2 * j + 1] - 1;
 

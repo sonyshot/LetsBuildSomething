@@ -8,6 +8,7 @@
 class Tetris :public Game {
 	//1 is long, 2 is "L", 3 is mirror of "L", 4 is the fork one, 5 is square, 6 is steps, 7 is mirror of steps
 
+	int m_blockSize = 20;
 	std::array<bool, 300> m_filledGrid;
 	sf::VertexArray m_blocks;
 	//instead of this, should there be separate arrays for each row?
@@ -15,7 +16,7 @@ class Tetris :public Game {
 	sf::RectangleShape m_backdrop;
 	sf::RectangleShape m_gameOverLay;
 
-	int m_interval = 30;
+	int m_interval = 20;
 	int m_frames = 0;
 
 	void createNextPiece(PieceType);
@@ -29,7 +30,6 @@ class Tetris :public Game {
 	void clearRow(int);
 
 	sf::Vector2f m_grid;
-	int m_blockSize = 30;
 	int m_pieceStartxPos = 400;
 	int m_pieceStartyPos = 400;
 

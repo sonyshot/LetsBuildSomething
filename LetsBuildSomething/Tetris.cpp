@@ -2,18 +2,18 @@
 #include "StateManager.h"
 
 Tetris::Tetris(sf::Vector2f position, sf::Vector2f size, sf::Vector2f grid, StateManager* sm) 
-	:m_filledGrid(), m_backdrop(sf::Vector2f(200, 600)),m_gameOverLay(sf::Vector2f(200, 600)), m_piece(randomPiece(), m_blockSize), m_grid(grid) {
-	//assuming 10x30 grid for now
+	:m_blockSize(20), m_filledGrid(), m_backdrop(sf::Vector2f(m_blockSize*grid.x, m_blockSize*grid.y)),m_gameOverLay(sf::Vector2f(m_blockSize*grid.x, m_blockSize*grid.y)), m_piece(randomPiece(), m_blockSize), m_grid(grid) {
+	//blocksize still hardcoded at 20
 	m_screenX = position.x;
 	m_screenW = size.x;
 	m_screenY = position.y;
 	m_screenH = size.y;
 	
-	m_backdrop.setPosition(m_screenX + m_screenW/2, 0);
+	m_backdrop.setPosition(m_screenX + (m_screenW - m_blockSize*m_grid.x)/2, m_screenY);
 	m_backdrop.setFillColor(sf::Color::Green);
-	m_gameOverLay.setPosition(300, 0);
+	m_gameOverLay.setPosition(m_screenX + (m_screenW - m_blockSize * m_grid.x) / 2, m_screenY);
 	m_gameOverLay.setFillColor(sf::Color(75, 75, 75, 100));
-	m_piece.setPosition(400, 0);
+	m_piece.setPosition(m_screenX+m_screenW/2, m_screenY);
 	m_blocks.setPrimitiveType(sf::Quads);
 	m_stateManager = sm;
 }
