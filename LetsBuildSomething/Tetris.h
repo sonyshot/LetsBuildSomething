@@ -32,12 +32,15 @@ class Tetris :public Game {
 	int m_blockSize = 30;
 	int m_pieceStartxPos = 400;
 	int m_pieceStartyPos = 400;
+	int m_score = 0;
 
 	bool m_paused = 0;
 	bool m_gameOver = 0;
 
 	TetrisPiece m_piece;
 
+	void addPoints(int numCleared);
+	void forcedMove();
 	void pieceToBlocks();
 	void isGameOver();
 

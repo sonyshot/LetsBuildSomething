@@ -149,28 +149,42 @@ void Tetris::pieceToBlocks() {
 	}
 }
 
+void Tetris::addPoints(int rowsCleared) {
+	if (rowsCleared < 4)
+		m_score = 100 * rowsCleared;
+	else
+		m_score = 200 * rowsCleared;
+	std::cout << m_score << std::endl;
+}
+
+void Tetris::forcedMove() {
+	if (checkCollision(0, 1)) {
+		pieceToBlocks();
+		int row = rowsToClear();
+		int numCleared = 0;
+		while (row != -1) {
+			clearRow(row);
+			numCleared++;
+			row = rowsToClear();
+		}
+		addPoints(numCleared);
+		createNextPiece(randomPiece());
+		isGameOver();
+	}
+	else
+		movePiece(0, 1);
+}
+
 void Tetris::update() {
 	//need a better way to wait 30 frames before doing stuff
 	//update gettin a litttle long, maybe divide up the work
 	if (m_gameOver)
 		return;
 	if (!m_paused) {
-		if (++m_frames / 30 >= 1) {
+		if (++m_frames >= 30) {
 			m_frames = 0;
 			//forced movement, move into own function?
-			if (checkCollision(0, 1)) {
-				pieceToBlocks();
-				int test = rowsToClear();
-				while (test != -1) {
-					clearRow(test);
-					test = rowsToClear();
-				}
-				createNextPiece(randomPiece());
-				isGameOver();
-			}
-			else {
-				movePiece(0, 1);
-			}
+			forcedMove();
 		}
 	}
 	//move piece according to input (handled elsewhere currently)
