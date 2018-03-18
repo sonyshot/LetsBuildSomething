@@ -28,7 +28,8 @@ class Tetris :public Game {
 	int rowsToClear();
 	void clearRow(int);
 
-	int m_blockSize = 20;
+	sf::Vector2f m_grid;
+	int m_blockSize = 30;
 	int m_pieceStartxPos = 400;
 	int m_pieceStartyPos = 400;
 
@@ -41,7 +42,7 @@ class Tetris :public Game {
 	void isGameOver();
 
 public:
-	Tetris(StateManager*);
+	Tetris(sf::Vector2f position, sf::Vector2f size, sf::Vector2f grid, StateManager*);
 
 	~Tetris();
 
