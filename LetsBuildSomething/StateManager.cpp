@@ -33,7 +33,7 @@ void StateManager::switchState(PossibleStates newState) {
 		m_currentState = newState;
 	}
 	else if (newState == TETRISSTATE) {
-		m_currentGame = new Tetris(this);
+		m_currentGame = new Tetris(sf::Vector2f(0, 0), sf::Vector2f(800, 800), sf::Vector2f(10, 30),this);
 		m_currentState = TETRISSTATE;
 	}
 }

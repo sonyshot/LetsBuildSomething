@@ -11,7 +11,7 @@ class TetrisPiece :public sf::Drawable, public sf::Transformable{
 
 	sf::VertexArray m_vertices;
 
-	int m_blockSize = 10;
+	int m_blockSize = 20;
 	int m_rows = 0;
 	int m_cols = 0;
 
