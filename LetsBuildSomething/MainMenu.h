@@ -14,6 +14,15 @@ class MainMenu : public Game {
 	std::unordered_map<int, PossibleStates> m_selToStateMap;
 	std::unordered_map<PossibleStates, std::string> m_stateToNameMap;
 
+	sf::UdpSocket m_socket;
+	sf::Packet m_sendPacket;
+	sf::Packet m_receivePacket;
+	unsigned short m_port = 4380;
+	sf::IpAddress m_recipient = "10.0.0.245";
+	sf::IpAddress m_sender = "10.0.0.220";
+
+	std::string m_testMessage = "hello comp";
+
 	sf::Font m_font;
 	sf::Text m_headerText;
 	sf::Text m_selectName;
