@@ -1,15 +1,16 @@
 #include <SFML\Graphics.hpp>
 #include "StateManager.h"
+#include <fstream>
 
 //test changes
 int main()
 {
-	srand(NULL);
+	srand(0);
 	float fps = 60.f;
 	sf::Time sleepTime(sf::seconds(1.f / fps));
 	sf::Clock clock;	
 
-	sf::RenderWindow window(sf::VideoMode(800, 800), "board drawing test");
+	sf::RenderWindow window(sf::VideoMode(800, 800), "board drawing test", sf::Style::None);
 
 	StateManager snm(&window);
 
@@ -56,6 +57,6 @@ Games to implement:
 
 Other to do:
 -score tracking/stats
-
+--create serialization technique
 
 */

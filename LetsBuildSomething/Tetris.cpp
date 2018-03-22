@@ -13,7 +13,8 @@ Tetris::Tetris(sf::Vector2f position, sf::Vector2f size, sf::Vector2f grid, Stat
 		std::cout << "Failed to load font" << std::endl;
 
 	m_scoreText.setFont(m_font);
-	m_scoreText.setPosition(position);
+	m_scoreText.setPosition(position + sf::Vector2f(100, 100));
+	m_scoreText.setFillColor(sf::Color::White);
 	m_scoreText.setString(std::to_string(m_score));
 	
 	m_backdrop.setPosition(m_screenX + (m_screenW - m_blockSize*m_grid.x)/2, m_screenY);
