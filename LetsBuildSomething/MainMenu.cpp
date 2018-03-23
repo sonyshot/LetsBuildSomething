@@ -37,14 +37,6 @@ MainMenu::MainMenu(StateManager * sm) {
 	m_buttons[m_currentSelection]->setOutlineThickness(5.f);
 
 	m_stateManager = sm;
-
-	if (m_socket.bind(m_port) != sf::Socket::Done) {
-		std::cout << "socket not bound" << std::endl;
-	}
-	else {
-		std::cout << "socket bound to " << m_socket.getLocalPort() << std::endl;
-	}
-	m_socket.setBlocking(0);
 }
 
 MainMenu::~MainMenu() {
@@ -83,8 +75,7 @@ void MainMenu::handleEvent(const sf::Event &e) {
 			queueSwitch(m_selToStateMap[m_currentSelection]);
 		}
 		else if (e.key.code == sf::Keyboard::Space) {
-			m_sendPacket << m_testMessage;
-			m_socket.send(m_sendPacket, m_recipient, m_port);
+
 		}
 		break;
 
@@ -106,11 +97,7 @@ void MainMenu::handleEvent(const sf::Event &e) {
 }
 
 void MainMenu::update() {
-	m_socket.receive(m_receivePacket, m_sender, m_port);
-	std::string x;
-	if (m_receivePacket >> x) {
-		std::cout << x << std::endl;
-	}
+
 }
 
 void MainMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
