@@ -28,10 +28,12 @@ MainMenu::MainMenu(StateManager * sm) {
 	m_selToStateMap[0] = PONGSTATE;
 	m_selToStateMap[1] = SNAKESTATE;
 	m_selToStateMap[2] = TETRISSTATE;
+	m_selToStateMap[3] = PHYSICSSTATE;
 	//GAME'S TITLE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	m_stateToNameMap[PONGSTATE] = "Pong";
 	m_stateToNameMap[SNAKESTATE] = "Snake";
 	m_stateToNameMap[TETRISSTATE] = "Tetris";
+	m_stateToNameMap[PHYSICSSTATE] = "3d test";
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	m_buttons[m_currentSelection]->setOutlineThickness(5.f);
