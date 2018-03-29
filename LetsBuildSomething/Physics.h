@@ -7,6 +7,8 @@
 //here we will try out our fake 3d rendering
 
 class Physics : public Game {
+	//looks like the preferred way to do this is store a camera matrix and view matrix; where camera matrix is the result of user input
+	//and view matrix is the "opposite" that will be applied to an object
 	sf::Vector3f m_cameraPos{0.f,0.f,0.f};
 	float m_cameraTheta = 0.f;
 	float m_cameraPhi = 3.1415926/2.f;
@@ -18,7 +20,7 @@ class Physics : public Game {
 
 	bool m_canDraw = 0;
 
-	sf::Vector3f m_pointPos{ 100.f, 25.f, 25.f };
+	sf::Vector3f m_pointPos{ 100.f, 0.f, 0.f };
 	sf::RectangleShape m_objVisual{ sf::Vector2f(50.f, 50.f) };
 
 	void rotateCam(float angle, int dim);
