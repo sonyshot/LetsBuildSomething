@@ -18,6 +18,8 @@ class Physics : public Game {
 	float m_windowW = 800.f;
 	float m_windowH = 800.f;
 
+	std::array<float, 16> m_viewMatrix = { 1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1 };
+
 	bool m_canDraw = 0;
 
 	sf::Vector3f m_pointPos{ 100.f, 0.f, 0.f };

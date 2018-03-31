@@ -1,6 +1,32 @@
 #include "Physics.h"
 #include "StateManager.h"
 
+//should make this a template probs, but thats for another day
+float dotProduct(std::array<float, 4> &vec1, std::array<float, 4> &vec2) {
+	return vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2] + vec1[3] * vec2[3];
+}
+
+void vectorTrans(std::array<float, 16> &mat, std::array<float, 4> &vec) {
+	std::array<float, 4> output;
+	for (int i = 0; i < 4; i++) {
+		std::array<float, 4> matRow = { mat[4 * i], mat[1 + 4 * i], mat[2 + 4 * i], mat[3 + 4 * i] };
+		output[i] = dotProduct(matRow, vec);
+	}
+	vec = output;
+}
+
+void matrixMultiply(std::array<float, 16> &mat1, std::array<float, 16> &mat2) {
+	std::array<float, 16> output;
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			std::array<float, 4> matRow = { mat1[4 * i],mat1[1 + 4 * i],mat1[2 + 4 * i],mat1[3 + 4 * i] };
+			std::array<float, 4> matCol = { mat2[j],mat2[j + 4],mat2[j + 8] ,mat2[j + 12] };
+			output[j + 4 * i] = dotProduct(matRow, matCol);
+		}
+	}
+	mat2 = output;
+}
+
 void rotatePoint(sf::Vector3f &point, float angle, int dim) {
 	if (dim == 0) {
 		//around x-axis
@@ -29,11 +55,26 @@ void Physics::rotateCam(float angle, int dim) {
 	}
 	else if (dim == 1) {
 		//around y-axis
-		m_cameraTheta += angle;
+		if (m_cameraPhi + angle < 0) {
+			//check if change would cross 0
+			angle = -m_cameraPhi;
+			m_cameraPhi = 0;
+		}
+		else if (m_cameraPhi + angle > 3.1415926) {
+			//check if change would cross pi
+			angle = 3.1415926 - m_cameraPhi;
+			m_cameraPhi = 3.1415926;
+		}
+		else {
+			m_cameraPhi += angle;
+		}
+		std::array<float, 16> rotMat = { cos(-angle), -sin(-angle), 0, 0, sin(-angle), cos(-angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
+		matrixMultiply(rotMat, m_viewMatrix);
 	}
 	else if (dim == 2) {
 		//around z-axis
-		m_cameraPhi += angle;
+		std::array<float, 16> rotMat = { cos(-angle), 0, sin(-angle), 0, 0, 1, 0, 0, -sin(-angle), 0, cos(-angle), 0, 0, 0, 0, 1 };
+		matrixMultiply(rotMat, m_viewMatrix);
 	}
 }
 
@@ -44,25 +85,21 @@ void translatePoint(sf::Vector3f &point,float x, float y, float z) {
 }
 
 void Physics::translateCam(float x, float y, float z) {
-	m_cameraPos.x += x;
-	m_cameraPos.y += y;
-	m_cameraPos.z += z;
+	std::array<float, 16> transMat = { 1, 0, 0, -x, 0, 1, 0, -y, 0, 0, 1, -z, 0, 0, 0, 1 };
+	matrixMultiply(transMat, m_viewMatrix);
 }
 
 bool Physics::prepVisual() {
 	//do calculations and set visual objects position
-	sf::Vector3f visualPos(m_pointPos);
-	translatePoint(visualPos, -m_cameraPos.x, -m_cameraPos.y, -m_cameraPos.z);
-	rotatePoint(visualPos, m_cameraPhi - 3.1415926 / 2.f, 2);
-	rotatePoint(visualPos, -m_cameraTheta, 1);
-	sf::Vector3f screenPlane({m_windowDistance, 0, 0});
-	std::cout << "Obj position: (" << visualPos.x << ", " << visualPos.y << ", " << visualPos.z << ")" << std::endl;
-	if (m_windowDistance < visualPos.x) {
+	std::array<float, 4> visualPos = {m_pointPos.x, m_pointPos.y, m_pointPos.z, 1};
+	vectorTrans(m_viewMatrix, visualPos);
+	std::cout << "Obj position: (" << visualPos[0] << ", " << visualPos[1] << ", " << visualPos[2] << ")" << std::endl;
+	if (m_windowDistance < visualPos[0]) {
 		//ratio = screen distance / visualP dotted with screenplane / screen distance -> simplifies to
 		//screenDistance/x of visualP
-		float ratio = m_windowDistance/visualPos.x;
+		float ratio = m_windowDistance/visualPos[0];
 		//ratio * visualPos gives projection
-		m_objVisual.setPosition(sf::Vector2f(visualPos.z * ratio + 350, visualPos.y * ratio + 350));
+		m_objVisual.setPosition(sf::Vector2f(visualPos[2] * ratio + 350, visualPos[1] * ratio + 350));
 		return true;
 	}
 	return false;
@@ -113,22 +150,18 @@ void Physics::handleEvent(const sf::Event &e) {
 		}
 		else if (e.key.code == sf::Keyboard::Up) {
 			//look down
-			m_cameraPhi += 10.f*3.1415926/180.f;
-			if (m_cameraPhi > 3.1415926)
-				m_cameraPhi = 3.1415926;
+			rotateCam(-10.f * 3.1415926 / 180.f, 1);
 		}
 		else if (e.key.code == sf::Keyboard::Down) {
 			//look up
-			m_cameraPhi -= 10.f*3.1415926 / 180.f;
-			if (m_cameraPhi < 0)
-				m_cameraPhi = 0;
+			rotateCam(10.f * 3.1415926 / 180.f, 1);
 		}
 		else if (e.key.code == sf::Keyboard::Left) {
 			//turn left
-			m_cameraTheta += 10.f*3.1415926 / 180.f;
+			rotateCam(10.f*3.1415926 / 180.f, 2);
 		}
 		else if (e.key.code == sf::Keyboard::Right) {
-			m_cameraTheta -= 10.f*3.1415926 / 180.f;
+			rotateCam(-10.f*3.1415926 / 180.f, 2);
 		}
 		break;
 
