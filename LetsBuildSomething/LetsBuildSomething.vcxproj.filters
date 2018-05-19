@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{608cecd9-0513-4258-a84a-a63bc268ce31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Space Invaders Sources">
+      <UniqueIdentifier>{5b700350-fb4b-4597-8ed2-42e1f318cf24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Space Invaders Headers">
+      <UniqueIdentifier>{e3ea3992-b898-4960-afc2-6a78fad6d1e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +78,9 @@
     <ClCompile Include="Physics.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Invaders.cpp">
+      <Filter>Source Files\Space Invaders Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h">
@@ -97,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="Physics.h">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Invaders.h">
+      <Filter>Header Files\Space Invaders Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

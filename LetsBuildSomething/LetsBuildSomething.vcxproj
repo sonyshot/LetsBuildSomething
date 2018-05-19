@@ -124,12 +124,14 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Pong.cpp" />
     <ClCompile Include="Snake.cpp" />
+    <ClCompile Include="Invaders.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="TetrisPiece.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Invaders.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Pong.h" />

@@ -43,15 +43,13 @@ int main()
 
 /*
 
-Once finished with Pong, move on to creating the overview classes, statemanager and game
-
 Games to implement:
--Pong
+-Pong *sufficient*
 -Space Invaders
--Snake
+-Snake *sufficient*
 -Asteroids
 -Pac Man
--tetris
+-tetris *sufficient*
 -cards?
 -...
 
